@@ -1,0 +1,626 @@
+/*
+ * ProfileChanger - Custom Profile editor styles
+ * Layout follows the reference screenshots: one scrolling page, uppercase labels,
+ * pill badges, green toggle, sticky footer with left-aligned buttons.
+ * SPDX-License-Identifier: GPL-3.0-or-later
+ */
+
+.vc-custom-profile-modal {
+    /* Local design tokens with fallbacks so nothing depends on Discord vars that may be missing */
+    --vcp-accent: var(--brand-500, var(--brand-experiment, #5865f2));
+    --vcp-accent-soft: color-mix(in srgb, var(--vcp-accent) 18%, transparent);
+    --vcp-surface: var(--background-secondary, #2b2d31);
+    --vcp-surface-hover: var(--background-modifier-hover, rgba(255, 255, 255, 0.06));
+    --vcp-border: var(--background-modifier-accent, rgba(255, 255, 255, 0.1));
+    --vcp-radius: 10px;
+    --vcp-ease: 0.15s ease;
+
+    width: 540px;
+    max-width: 94vw;
+    display: flex;
+    flex-direction: column;
+    min-height: 0;
+}
+
+.vc-custom-profile-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* ------------------------------- profile chip ------------------------------ */
+
+.vc-custom-profile-profile-chip {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    align-self: flex-start;
+    margin-bottom: 12px;
+    padding: 4px 12px 4px 4px;
+    border-radius: 999px;
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+    color: var(--text-muted);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: default;
+    flex-shrink: 0;
+}
+
+.vc-custom-profile-profile-chip img {
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+}
+
+/* ---------------------------------- body ---------------------------------- */
+
+.vc-custom-profile-body {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    padding: 2px 10px 2px 2px;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+    min-height: 0;
+    max-height: min(560px, 66vh);
+}
+
+.vc-custom-profile-body::-webkit-scrollbar,
+.vc-custom-profile-deco-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.vc-custom-profile-body::-webkit-scrollbar-thumb,
+.vc-custom-profile-deco-grid::-webkit-scrollbar-thumb {
+    background: var(--scrollbar-thin-thumb, rgba(255, 255, 255, 0.2));
+    border-radius: 4px;
+}
+
+.vc-custom-profile-body::-webkit-scrollbar-track,
+.vc-custom-profile-deco-grid::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+/* --------------------------------- fields --------------------------------- */
+
+.vc-custom-profile-field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vc-custom-profile-label,
+.vc-custom-profile-section-title {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 1.2;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--header-secondary);
+}
+
+.vc-custom-profile-label-dim {
+    margin-left: 6px;
+    font-weight: 500;
+    text-transform: none;
+    letter-spacing: 0;
+    color: var(--text-muted);
+    opacity: 0.75;
+}
+
+.vc-custom-profile-input-wrap {
+    display: flex;
+    align-items: center;
+    min-width: 0;
+}
+
+.vc-custom-profile-input-wrap > div {
+    flex: 1;
+    min-width: 0;
+}
+
+.vc-custom-profile-modal [class*="input"] {
+    font-size: 14px;
+}
+
+/* Focus ring for plain inputs */
+.vc-custom-profile-modal input:focus-visible,
+.vc-custom-profile-modal textarea:focus-visible {
+    outline: 2px solid var(--vcp-accent);
+    outline-offset: 0;
+}
+
+/* ------------------------------ media fields ------------------------------ */
+
+.vc-custom-profile-media-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vc-custom-profile-media-row .vc-custom-profile-input-wrap {
+    flex: 1;
+}
+
+.vc-custom-profile-media-btn {
+    flex-shrink: 0;
+}
+
+.vc-custom-profile-media-preview-circle {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+}
+
+.vc-custom-profile-media-preview-banner {
+    width: 60px;
+    height: 34px;
+    border-radius: 6px;
+    object-fit: cover;
+    flex-shrink: 0;
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+}
+
+.vc-custom-profile-media-clear,
+.vc-custom-profile-color-clear {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 26px;
+    height: 26px;
+    padding: 0;
+    border: none;
+    border-radius: 6px;
+    background: transparent;
+    color: var(--text-muted);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: color var(--vcp-ease), background var(--vcp-ease);
+}
+
+.vc-custom-profile-media-clear:hover,
+.vc-custom-profile-color-clear:hover {
+    color: var(--text-danger, #f23f43);
+    background: var(--vcp-surface-hover);
+}
+
+/* ------------------------------- nitro card ------------------------------- */
+
+.vc-custom-profile-nitro-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    padding: 14px 16px;
+    border-radius: var(--vcp-radius);
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+}
+
+.vc-custom-profile-nitro-title {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text-normal);
+    line-height: 1.3;
+}
+
+.vc-custom-profile-nitro-desc {
+    margin-top: 2px;
+    font-size: 12px;
+    color: var(--text-muted);
+    line-height: 1.35;
+}
+
+/* Green Nitro-style toggle, scoped to this editor only */
+.vc-custom-profile-modal .vc-switch-container {
+    border-radius: 14px;
+    background: var(--primary-400, #4e5058);
+    transition: background var(--vcp-ease);
+}
+
+.vc-custom-profile-modal .vc-switch-checked {
+    background: #23a55a;
+    border-color: transparent;
+}
+
+.vc-custom-profile-modal .vc-switch-slider {
+    border-radius: 50%;
+    background: #fff;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.35);
+}
+
+/* -------------------------------- colors --------------------------------- */
+
+.vc-custom-profile-color-rows {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vc-custom-profile-color-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.vc-custom-profile-color-label {
+    width: 56px;
+    flex-shrink: 0;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+.vc-custom-profile-color-swatch {
+    width: 36px;
+    height: 36px;
+    padding: 3px;
+    border: 1px solid var(--vcp-border);
+    border-radius: 8px;
+    background: var(--vcp-surface);
+    cursor: pointer;
+    flex-shrink: 0;
+    transition: border-color var(--vcp-ease), transform var(--vcp-ease);
+}
+
+.vc-custom-profile-color-swatch:hover {
+    border-color: var(--vcp-accent);
+    transform: scale(1.05);
+}
+
+.vc-custom-profile-color-swatch::-webkit-color-swatch-wrapper {
+    padding: 0;
+}
+
+.vc-custom-profile-color-swatch::-webkit-color-swatch {
+    border: none;
+    border-radius: 5px;
+}
+
+.vc-custom-profile-color-row .vc-custom-profile-input-wrap {
+    flex: 1;
+}
+
+/* ------------------------------- date input ------------------------------- */
+
+.vc-custom-profile-date-input {
+    width: 100%;
+    min-height: 40px;
+    padding: 10px 12px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    background: var(--input-background, #1e1f22);
+    color: var(--text-normal);
+    font-size: 14px;
+    color-scheme: dark;
+    transition: border-color var(--vcp-ease);
+}
+
+.vc-custom-profile-date-input:focus {
+    outline: none;
+    border-color: var(--vcp-accent);
+}
+
+.vc-custom-profile-date-input::-webkit-calendar-picker-indicator {
+    width: 18px;
+    height: 18px;
+    opacity: 0.8;
+    cursor: pointer;
+    filter: brightness(0) invert(1);
+}
+
+/* -------------------------------- sections -------------------------------- */
+
+.vc-custom-profile-section {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.vc-custom-profile-replace-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    font-size: 14px;
+    color: var(--text-normal);
+}
+
+/* --------------------------------- chips ---------------------------------- */
+
+.vc-custom-profile-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.vc-custom-profile-chip {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border: 2px solid transparent;
+    border-radius: 999px;
+    background: var(--vcp-surface);
+    color: var(--text-normal);
+    font-size: 12px;
+    font-weight: 500;
+    line-height: 1.2;
+    white-space: nowrap;
+    cursor: pointer;
+    user-select: none;
+    transition: border-color var(--vcp-ease), background var(--vcp-ease),
+        box-shadow var(--vcp-ease), transform var(--vcp-ease);
+}
+
+.vc-custom-profile-chip:hover {
+    background: var(--vcp-surface-hover);
+    border-color: var(--vcp-border);
+}
+
+.vc-custom-profile-chip:active {
+    transform: scale(0.97);
+}
+
+/* SELECTED STATE - high specificity + multiple selectors so it always shows */
+.vc-custom-profile-modal .vc-custom-profile-chip.selected,
+.vc-custom-profile-modal .vc-custom-profile-chip.active,
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-pressed="true"],
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-selected="true"],
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-checked="true"],
+.vc-custom-profile-modal .vc-custom-profile-chip[data-selected="true"] {
+    border-color: var(--vcp-accent);
+    background: var(--vcp-accent-soft);
+    color: var(--text-normal);
+    box-shadow: 0 0 0 1px var(--vcp-accent);
+}
+
+.vc-custom-profile-modal .vc-custom-profile-chip.selected::after,
+.vc-custom-profile-modal .vc-custom-profile-chip.active::after,
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-pressed="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-selected="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-chip[aria-checked="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-chip[data-selected="true"]::after {
+    content: "✓";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: var(--vcp-accent);
+    color: #fff;
+    font-size: 9px;
+    font-weight: 800;
+    line-height: 1;
+}
+
+.vc-custom-profile-chip img {
+    width: 16px;
+    height: 16px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.vc-custom-profile-chip span {
+    max-width: 180px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* --------------------------- avatar decorations --------------------------- */
+
+.vc-custom-profile-deco-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 50px));
+    gap: 10px;
+    max-height: 176px;
+    overflow-y: auto;
+    padding: 4px 6px 4px 4px;
+}
+
+.vc-custom-profile-deco {
+    position: relative;
+    width: 50px;
+    height: 50px;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: visible;
+    border: 2px solid transparent;
+    border-radius: 50%;
+    background: var(--vcp-surface);
+    cursor: pointer;
+    transition: border-color var(--vcp-ease), transform var(--vcp-ease),
+        box-shadow var(--vcp-ease), background var(--vcp-ease);
+}
+
+.vc-custom-profile-deco:hover {
+    border-color: var(--vcp-border);
+    transform: scale(1.06);
+}
+
+.vc-custom-profile-modal .vc-custom-profile-deco.selected,
+.vc-custom-profile-modal .vc-custom-profile-deco.active,
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-pressed="true"],
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-selected="true"],
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-checked="true"],
+.vc-custom-profile-modal .vc-custom-profile-deco[data-selected="true"] {
+    border-color: var(--vcp-accent);
+    background: var(--vcp-accent-soft);
+    box-shadow: 0 0 0 2px var(--vcp-accent-soft), 0 0 12px var(--vcp-accent-soft);
+}
+
+.vc-custom-profile-modal .vc-custom-profile-deco.selected::after,
+.vc-custom-profile-modal .vc-custom-profile-deco.active::after,
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-pressed="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-selected="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-deco[aria-checked="true"]::after,
+.vc-custom-profile-modal .vc-custom-profile-deco[data-selected="true"]::after {
+    content: "✓";
+    position: absolute;
+    right: -3px;
+    bottom: -3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--vcp-accent);
+    color: #fff;
+    font-size: 10px;
+    font-weight: 800;
+    line-height: 1;
+    border: 2px solid var(--vcp-surface);
+}
+
+.vc-custom-profile-deco img {
+    width: 42px;
+    height: 42px;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
+.vc-custom-profile-deco-none {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+}
+
+/* ---------------------------------- hint ---------------------------------- */
+
+.vc-custom-profile-hint {
+    font-size: 11px;
+    line-height: 1.45;
+    color: var(--text-muted);
+}
+
+/* --------------------------------- footer --------------------------------- */
+
+.vc-custom-profile-footer {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid var(--vcp-border);
+    flex-shrink: 0;
+}
+
+.vc-custom-profile-footer .vc-btn-base {
+    height: 34px;
+    min-height: 34px;
+    padding: 0 16px;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: filter var(--vcp-ease), transform var(--vcp-ease);
+}
+
+.vc-custom-profile-footer .vc-btn-base:hover {
+    filter: brightness(1.1);
+}
+
+.vc-custom-profile-footer .vc-btn-base:active {
+    transform: translateY(1px);
+}
+
+/* ---------------------------- custom badges ------------------------------- */
+
+.vc-custom-profile-custom-badges {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.vc-custom-profile-custom-badge-form {
+    display: flex;
+    gap: 14px;
+    padding: 12px;
+    border-radius: var(--vcp-radius);
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+}
+
+.vc-custom-profile-custom-badge-preview-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    min-width: 72px;
+}
+
+.vc-custom-profile-custom-badge-fields {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.vc-custom-profile-custom-badge-list {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.vc-custom-profile-custom-badge-hint {
+    margin-bottom: 2px;
+}
+
+.vc-custom-profile-custom-badge-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    background: var(--vcp-surface);
+    border: 1px solid var(--vcp-border);
+    transition: background var(--vcp-ease);
+}
+
+.vc-custom-profile-custom-badge-item:hover {
+    background: var(--vcp-surface-hover);
+}
+
+.vc-custom-profile-custom-badge-item-info {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 2px;
+    min-width: 0;
+    font-size: 13px;
+}
+
+.vc-custom-profile-custom-badge-item-info span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.vc-custom-profile-custom-badge-item-color {
+    font-size: 11px;
+    color: var(--text-muted);
+    font-family: var(--font-code, monospace);
+}
+
+@media (max-width: 520px) {
+    .vc-custom-profile-modal {
+        width: 100%;
+    }
+}
